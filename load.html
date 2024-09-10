@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer</title>
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:800);
+
+    .container {
+      margin: auto;
+      width: 100px; /* 400px / 4 */
+      display: none; /* Hide by default */
+    }
+
+    .path--background {
+      fill: #ef2323;
+      stroke: #fff;
+      stroke-width: 0px;
+    }
+
+    .pulse {
+      fill: #ef2323 !important;
+    }
+
+    .path--foreground {
+      fill: #eee;
+      stroke: #eee;
+      stroke-width: 0.5px; /* 2px / 4 */
+    }
+
+    .label {
+      font: 22.5px "Open Sans"; /* 90px / 4 */
+      font-weight: 900;
+      text-anchor: middle;
+      fill: #ef2323;
+    }
+  </style>
+</head>
+<body>
+  <div class="httpsenabled">
+    <div style="width: 100%;">
+      <p id="startVEfile">Start Record butonuna basarak mikrofonunuz ile kayıt bırakabilirsiniz. (Maks 60 sn)</p>
+    </div>
+    <button class="btn-request" style="float: left;">Start Record</button>
+    <label id="recordleft" style="float: left; margin-left: 20px;">60</label>
+  </div>
+
+  <div class="container"></div>
+
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script>
+    var width = 100,  /* 400 / 4 */
+        height = 100, /* 400 / 4 */
+        timePassed = 0,
+        timeLimit = 60,
+        intervalId;
+
+    var fields = [{
+      value: timeLimit,
+      size: timeLimit,
+      update: function() {
+        return timePassed += 1;
+      }
+    }];
+
+    var nilArc = d3.svg.arc()
+      .innerRadius(width / 3 - 33.25) /* 133 / 4 */
+      .outerRadius(width / 3 - 33.25) /* 133 / 4 */
+      .startAngle(0)
+      .endAngle(2 * Math.PI);
+
+    var arc = d3.svg.arc()
+      .innerRadius(width / 3 - 13.75) /* 55 / 4 */
+      .outerRadius(width / 3 - 6.25) /* 25 / 4 */
+      .startAngle(0)
+      .endAngle(function(d) {
+        return ((d.value / d.size) * 2 * Math.PI);
+      });
+
+    var svg = d3.select(".container").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    var field = svg.selectAll(".field")
+      .data(fields)
+      .enter().append("g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+      .attr("class", "field");
+
+    var back = field.append("path")
+      .attr("class", "path path--background")
+      .attr("d", arc);
+
+    var path = field.append("path")
+      .attr("class", "path path--foreground");
+
+    var label = field.append("text")
+      .attr("class", "label")
+      .attr("dy", ".35em");
+
+    document.querySelector('.btn-request').addEventListener('click', function() {
+      document.querySelector('.container').style.display = 'block';
+      update();
+    });
+
+    function update() {
+      field.each(function(d) {
+        d.previous = d.value;
+        d.value = d.update();
+      });
+
+      path.transition()
+        .ease("elastic")
+        .duration(500)
+        .attrTween("d", arcTween);
+
+      if ((timeLimit - timePassed) <= 10) {
+        pulseText();
+      } else {
+        label.text(function(d) {
+          return d.size - d.value;
+        });
+        document.getElementById('recordleft').textContent = timeLimit - timePassed;
+      }
+
+      if (timePassed <= timeLimit) {
+        intervalId = setTimeout(update, 1000);
+      } else {
+        destroyTimer();
+      }
+    }
+
+    function pulseText() {
+      back.classed("pulse", true);
+      label.classed("pulse", true);
+
+      if ((timeLimit - timePassed) >= 0) {
+        label.style("font-size", "30px") /* 120px / 4 */
+          .attr("transform", "translate(0," + 1 + ")") /* 4 / 4 */
+          .text(function(d) {
+            return d.size - d.value;
+          });
+        document.getElementById('recordleft').textContent = timeLimit - timePassed;
+      }
+
+      label.transition()
+        .ease("elastic")
+        .duration(900)
+        .style("font-size", "22.5px") /* 90px / 4 */
+        .attr("transform", "translate(0," + -2.5 + ")"); /* -10 / 4 */
+    }
+
+    function destroyTimer() {
+      clearTimeout(intervalId);
+      label.transition()
+        .ease("back")
+        .duration(700)
+        .style("opacity", "0")
+        .style("font-size", "1.25px") /* 5px / 4 */
+        .attr("transform", "translate(0," + -10 + ")") /* -40 / 4 */
+        .each("end", function() {
+          field.selectAll("text").remove();
+        });
+
+      path.transition()
+        .ease("back")
+        .duration(700)
+        .attr("d", nilArc);
+
+      back.transition()
+        .ease("back")
+        .duration(700)
+        .attr("d", nilArc)
+        .each("end", function() {
+          field.selectAll("path").remove();
+          document.querySelector('.container').style.display = 'none';
+          timePassed = 0;
+          document.getElementById('recordleft').textContent = timeLimit;
+        });
+    }
+
+    function arcTween(b) {
+      var i = d3.interpolate({ value: b.previous }, b);
+      return function(t) {
+        return arc(i(t));
+      };
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #333;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+.navbar li {
+    display: inline;
+}
+
+.navbar a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: #575757;
+}
+
+.content {
+    padding: 60px;
+}
+
+/* demo gönder butonu için */
+
+
+  .btn-demorequest {
+    padding: 1em 2em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #ef2323;
+    transition: all 1000ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #ef2323;
+    background-color: transparent;
+  }
+  
+  .btn-demorequest:hover {
+    color: black;
+    transform: scale(1.1);
+    outline: 2px solid black;
+    box-shadow: 4px 5px 17px -4px #ef2323;
+  }
+  
+  .btn-demorequest::before {
+    content: "";
+    position: absolute;
+    left: -50px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: #ef2323;
+    transform: skewX(45deg);
+    z-index: -1;
+    transition: width 1000ms;
+  }
+  
+  .btn-demorequest:hover::before {
+    width: 250%;
+  }
+  
+  /* bu ise demo formu için*/
+
+  /* Genel form stili */
+.single_contant_left {
+    font-family: Arial, sans-serif;
+    color: #050A0E;
+  }
+  
+  .form-group {
+    margin-bottom: 1em;
+  }
+  
+  .form-control {
+    padding: 10px;
+    border: 2px solid #ef2323;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #ef2323;
+    font-size: 15px;
+    outline: none;
+    transition: all 500ms;
+  }
+  
+  .form-control::placeholder {
+    color: #ef2323;
+    opacity: 0.7;
+  }
+  
+  .form-control:focus {
+    border-color: black;
+    color: black;
+    background-color: #ffffff;
+    box-shadow: 4px 5px 17px -4px #ef2323;
+  }
+  
+  select.form-control {
+    height: auto;
+    background-color: #ffffff;
+  }
+  
+  select.form-control option {
+    color: #050A0E;
+    background-color: #ffffff;
+  }
+  
+  textarea.form-control {
+    resize: none;
+  }
+  
+  textarea.form-control:focus {
+    border-color: black;
+    color: black;
+    background-color: #ffffff;
+  }
+  
+  label {
+    font-weight: bold;
+    color: #ef2323;
+    text-transform: uppercase;
+  }
+  
+  /* Satırların boşluk düzenlemeleri */
+  .row {
+    margin-bottom: 1em;
+  } 
+  
+  /* Button için daha önce tanımladığınız stil */
+  .btn.btn-primary.demorequest {
+    padding: 1em 2em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #ef2323;
+    transition: all 1000ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #ef2323;
+    background-color: transparent;
+  }
+  
+  .btn.btn-primary.demorequest:hover {
+    color: black;
+    transform: scale(1.1);
+    outline: 2px solid black;
+    box-shadow: 4px 5px 17px -4px #ef2323;
+  }
+  
+  .btn.btn-primary.demorequest::before {
+    content: "";
+    position: absolute;
+    left: -50px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: #ef2323;
+    transform: skewX(45deg);
+    z-index: -1;
+    transition: width 1000ms;
+  }
+  
+  .btn.btn-primary.demorequest:hover::before {
+    width: 250%;
+  }
+
+  #footer1 {
+    color: white;
+    background-color: black;
+    padding: 1%;
+  }
+
+  /* bu yukarısı form kısımlarıyla ilgili
+  yapılacakalr:
+  hepsi düzenlenecek sadece altalta gözükmesinler merkezde ve yanyana gözüksünler
+  ürün listeleme kısmıda düzenlenmeli
+  */
+
+  /* dosya seç ve start record butonları için*/
+  .uploadedFiles {
+    padding: 10px;
+    border: 2px solid #ef2323;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #ef2323;
+    font-size: 15px;
+    outline: none;
+    transition: all 500ms;
+    margin-top: 10px;
+    float: left;
+  }
+  
+  .uploadedFiles::file-selector-button {
+    background-color: #ef2323;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 500ms;
+  }
+  
+  .uploadedFiles::file-selector-button:hover {
+    background-color: black;
+    color: #ef2323;
+  }
+
+  #startstoprecord {
+    padding: 1em 2em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #ef2323;
+    background-color: transparent;
+    outline: 2px solid #ef2323;
+    transition: all 1000ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    float: left;
+  }
+  
+  #startstoprecord:hover {
+    color: black;
+    transform: scale(1.1);
+    outline: 2px solid black;
+    box-shadow: 4px 5px 17px -4px #ef2323;
+  }
+  
+  #startstoprecord::before {
+    content: "";
+    position: absolute;
+    left: -50px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: #ef2323;
+    transform: skewX(45deg);
+    z-index: -1;
+    transition: width 1000ms;
+  }
+  
+  #startstoprecord:hover::before {
+    width: 250%;
+  }
+  
+  /*öbür gönder butonu için*/
+
+  .btn-primary {
+    padding: 1em 2em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #ef2323;
+    background-color: transparent;
+    outline: 2px solid #ef2323;
+    transition: all 1000ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1; /* ensure button is above pseudo-element */
+  }
+  
+  .btn-primary:hover {
+    color: black;
+    transform: scale(1.1);
+    outline: 2px solid black;
+    box-shadow: 4px 5px 17px -4px #ef2323;
+  }
+  
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    left: -50px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: #ef2323;
+    transform: skewX(45deg);
+    z-index: -1;
+    transition: width 1000ms;
+  }
+  
+  .btn-primary:hover::before {
+    width: 250%;
+  }  
